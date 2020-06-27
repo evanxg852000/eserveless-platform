@@ -13,7 +13,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func SetupProject(store database.Datastore, projectName, repoURL string) (bool, bool, error) {
+func SetupProject(store database.Datastore, projectName, repoURL string, httpFns *[]string) (bool, bool, error) {
 	isCreated := false
 	hasChanged := false
 	projectDir, err := ioutil.TempDir("", "repos-")
@@ -68,6 +68,9 @@ func SetupProject(store database.Datastore, projectName, repoURL string) (bool, 
 		}
 		store.SaveFunction(fn)
 		functions = append(functions, fn)
+		if f.Type == database.HttpHandler {
+			*httpFns = append(*httpFns, fmt.Sprintf("/%s/%s", projectName, f.Name))
+		}
 	}
 
 	go func(projectDir string, store database.Datastore, functions []*database.Function) {

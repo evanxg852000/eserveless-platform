@@ -34,6 +34,7 @@ require (
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.4.1
+	github.com/spf13/cobra v1.0.0
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
 	google.golang.org/api v0.28.0 // indirect

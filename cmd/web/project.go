@@ -45,7 +45,8 @@ func (pc *ProjectController) CreateProject(c *fiber.Ctx) {
 	}
 
 	//attempt to create project and functions
-	hasChanged, isCreated, err := core.SetupProject(pc.store, projectName, repoURL)
+	httpFns := make([]string, 0)
+	hasChanged, isCreated, err := core.SetupProject(pc.store, projectName, repoURL, &httpFns)
 	if err != nil {
 		c.Status(500).JSON(fiber.Map{
 			"error":   "Server Error",
@@ -69,6 +70,7 @@ func (pc *ProjectController) CreateProject(c *fiber.Ctx) {
 		"message":    fmt.Sprintf("Yeah! project %s.", status),
 		"repository": repoURL,
 		"project":    projectName,
+		"functions":  httpFns,
 	})
 }
 
